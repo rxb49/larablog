@@ -59,7 +59,8 @@ class UserController extends Controller
     {
         // On vérifie que l'utilisateur est bien le créateur de l'article
         if ($article->user_id !== Auth::user()->id) {
-            abort(403);
+            return redirect()->route('dashboard')->with('error', 'Vous ne pouvez pas modifier cet article !');
+
         }
 
         // On retourne la vue avec l'article
