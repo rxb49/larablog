@@ -17,19 +17,16 @@ class UserController extends Controller
     public function store(Request $request)
     {
         // On récupère les données du formulaire
-        $validated = $request->validate([
-            'title' => 'required|max:255',
-            'content' => 'required',
-            'draft' => 'required',
-
-        ]);
+        $data = $request->only(['title', 'content', 'draft']);
         // Créateur de l'article (auteur)
-        $validated['user_id'] = Auth::user()->id;
+        $data['user_id'] = Auth::user()->id;
 
         // Gestion du draft
-        $validated['draft'] = isset($data['draft']) ? 1 : 0;
+        $data['draft'] = isset($data['draft']) ? 1 : 0;
+        $data['title'] = htmlspecialchars($data['title']);
+        $data['content'] = htmlspecialchars($data['content']);
         // On crée l'article
-        $article = Article::create($validated); // $Article est l'objet article nouvellement créé
+        $article = Article::create($data); // $Article est l'objet article nouvellement créé
 
         // Exemple pour ajouter la catégorie 1 à l'article
         // $article->categories()->sync(1);
@@ -81,7 +78,8 @@ class UserController extends Controller
 
         // Gestion du draft
         $data['draft'] = isset($data['draft']) ? 1 : 0;
-
+        $data['title'] = htmlspecialchars($data['title']);
+        $data['content'] = htmlspecialchars($data['content']);
         // On met à jour l'article
         $article->update($data);
 
