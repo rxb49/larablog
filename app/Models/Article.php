@@ -7,8 +7,10 @@
 namespace App\Models;
 
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * Class Article
@@ -30,6 +32,13 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Article extends Model
 {
+
+	use HasFactory;
+
+	public function run() {
+		Article::factory(50)->create();
+	}
+
 	protected $table = 'articles';
 
 	protected $casts = [
