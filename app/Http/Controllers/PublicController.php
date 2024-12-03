@@ -12,7 +12,7 @@ class PublicController extends Controller
     public function index(User $user)
     {
         // On récupère les articles publiés de l'utilisateur
-        $articles = Article::where('user_id', $user->id)->where('draft', 0)->get();
+        $articles = Article::where('user_id', $user->id)->where('draft', 0)->paginate(5);
     
         // On retourne la vue
         return view('public.index', [
@@ -32,5 +32,11 @@ class PublicController extends Controller
         ]);
         // Je vous laisse faire le code
         // N'oubliez pas de vérifier que l'article est publié (draft == 0)
+    }
+
+    public function listauteur(){
+
+        $auteurs = User::paginate(5);
+        return view('public.listauteur', ['auteurs' => $auteurs]) ;
     }
 }

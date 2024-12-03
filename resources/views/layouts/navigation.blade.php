@@ -18,6 +18,9 @@
                     <x-nav-link :href="route('articles.create')" :active="request()->routeIs('article.create')">
                         Créer un article
                     </x-nav-link>
+                    <x-nav-link :href="route('public.listauteur')" :active="request()->routeIs('article.create')">
+                        Liste des auteurs
+                    </x-nav-link>
                 </div>
             </div>
 

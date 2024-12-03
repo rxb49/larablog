@@ -1,7 +1,8 @@
 <div class="text-xl hover:underline font-bold ml-10 mt-10">
-    <a href="{{ route('public.index', $article->user->id) }}" class="text-xl hover:underline font-bold ml-10"> ← Retour sur les articles</a>
-</div>
+        <a href="{{ route('public.index', $article->user->id) }}" class="text-xl hover:underline font-bold ml-10"> ← Retour sur les articles</a>
+    </div>
 <x-guest-layout>
+
     <div class="pt-6 px-4">
 
         <div class="text-center">
@@ -20,4 +21,11 @@
             </div>
         </div>
     </div>
+
 </x-guest-layout>
+
+<form action="{{ route('comments.store') }}" method="post" class="mt-6">
+        @csrf
+        <input type="hidden" name="articleId" value="{{ $article->id }}">
+
+        </form>

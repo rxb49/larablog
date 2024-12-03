@@ -19,4 +19,5 @@
         <hr>
         @endforeach
     </div>
+    {{ $articles->links() }}
 </x-guest-layout>
