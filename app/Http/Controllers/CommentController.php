@@ -13,6 +13,7 @@ class CommentController extends Controller
         $content =$request->content;
         $articleId = $request->articleId;
         
+        
         if (Auth::check()) {
             Comment::create([
                 'content' => $content,

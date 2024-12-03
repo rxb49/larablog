@@ -7,6 +7,7 @@
 
     <div>
         <!-- Articles -->
+
         @foreach ($articles as $article)
         <div>
             <div class="p-6 text-gray-900 dark:text-gray-100">
@@ -18,6 +19,7 @@
         </div>
         <hr>
         @endforeach
+
     </div>
     {{ $articles->links() }}
 </x-guest-layout>
