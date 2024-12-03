@@ -25,8 +25,7 @@ class PublicController extends Controller
     {
         // $user est l'utilisateur de l'article
         // $article est l'article à afficher
-        $article = Article::where('user_id', $user->id)->where('draft', 0)->get();
-
+        $article = Article::where('user_id', $user->id)->where('draft', 0)->where('id', $article->id)->first();
         return view('public.show', [
             'article' => $article,
             'user' => $user
