@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ArticleController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PublicController;
@@ -22,6 +23,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/articles/create', [UserController::class, 'create'])->name('articles.create');
     Route::post('/articles/store', [UserController::class, 'store'])->name('articles.store');
     Route::get('/articles/{article}/edit', [UserController::class, 'edit'])->name('articles.edit');
+    Route::get('/articles/like', [ArticleController::class, 'like'])->name('article.like');
     Route::post('/comments/store', [CommentController::class, 'store'])->name('comments.store');
 });
 
