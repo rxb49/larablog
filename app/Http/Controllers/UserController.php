@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -11,23 +12,26 @@ class UserController extends Controller
 {
     public function create()
     {
-        return view('articles.create');
+        $categories = Category::all();
+        return view('articles.create', ['categories' => $categories]);
     }
 
     public function store(Request $request)
     {
-        // On récupère les données du formulaire
-        $data = $request->only(['title', 'content', 'draft']);
-        // Créateur de l'article (auteur)
+        
+        $data = $request->only(['title', 'content', 'draft', 'categories']);
         $data['user_id'] = Auth::user()->id;
 
         // Gestion du draft
         $data['draft'] = isset($data['draft']) ? 1 : 0;
         $data['title'] = htmlspecialchars($data['title']);
         $data['content'] = htmlspecialchars($data['content']);
+        
         // On crée l'article
         $article = Article::create($data); // $Article est l'objet article nouvellement créé
-
+        if ($request->has('categories')) {
+            $article->categories()->sync($request->input('categories'));
+        }
         // Exemple pour ajouter la catégorie 1 à l'article
         // $article->categories()->sync(1);
 
@@ -45,11 +49,11 @@ class UserController extends Controller
     {
         // On récupère l'utilisateur connecté.
         $user = Auth::user();
-
+        $categories = Category::all();
         $articles = Article::where('user_id', $user->id)->paginate(5);
 
         // On retourne la vue.
-        return view('dashboard', ['articles' => $articles]);
+        return view('dashboard', ['articles' => $articles, 'categories' => $categories]);
     }
 
     public function edit(Article $article)
@@ -59,10 +63,12 @@ class UserController extends Controller
             return redirect()->route('dashboard')->with('error', 'Vous ne pouvez pas modifier cet article !');
 
         }
+        $categories = Category::all();
 
         // On retourne la vue avec l'article
         return view('articles.edit', [
-            'article' => $article
+            'article' => $article,
+            'categories' => $categories
         ]);
     }
 
@@ -74,7 +80,7 @@ class UserController extends Controller
         }
 
         // On récupère les données du formulaire
-        $data = $request->only(['title', 'content', 'draft']);
+        $data = $request->only(['title', 'content', 'draft', 'categories']);
 
         // Gestion du draft
         $data['draft'] = isset($data['draft']) ? 1 : 0;
@@ -82,6 +88,10 @@ class UserController extends Controller
         $data['content'] = htmlspecialchars($data['content']);
         // On met à jour l'article
         $article->update($data);
+
+        if (isset($data['categories']) && is_array($data['categories'])) {
+            $article->categories()->sync($data['categories']);
+        }
 
         // On redirige l'utilisateur vers la liste des articles (avec un flash)
         return redirect()->route('dashboard')->with('success', 'Article mis à jour !');

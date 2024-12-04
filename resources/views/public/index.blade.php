@@ -15,10 +15,19 @@
                 <p class="text-gray-700 dark:text-gray-300">{{ substr($article->content, 0, 30) }}...</p>
                 
                 <a href="{{ route('public.show', [$article->user_id, $article->id]) }}" class="text-red-500 hover:text-red-700">Lire la suite</a>
+
+                <div class="mt-2">
+                    @foreach ($article->categories as $category)
+                        <span class="inline-block bg-gray-200 text-gray-700 text-sm font-medium px-3 py-1 rounded-full dark:bg-gray-700 dark:text-gray-300 mr-2">
+                            #{{ $category->name }}
+                        </span>
+                    @endforeach
+                </div>
             </div>
         </div>
         <hr>
         @endforeach
+
 
     </div>
     {{ $articles->links() }}

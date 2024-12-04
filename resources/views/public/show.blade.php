@@ -13,8 +13,12 @@
 
         <div class="text-gray-500 text-sm mt-2">
             Publié le {{ $article->created_at->format('d/m/Y') }} par <a href="{{ route('public.index', $article->user->id) }}">{{ $article->user->name }}</a>
-        </div>
-
+        </div><br>
+            @foreach ($article->categories as $category)
+                <span class="inline-block bg-gray-200 text-gray-700 text-sm font-medium px-3 py-1 rounded-full dark:bg-gray-700 dark:text-gray-300 mr-2">
+                    #{{ $category->name }}
+                    </span>
+            @endforeach
         <div>
             <div class="mt-4 p-6 bg-white dark:bg-gray-800 shadow-sm rounded-lg">
                 <p class="text-gray-700 dark:text-gray-300">{{ $article->content }}</p>

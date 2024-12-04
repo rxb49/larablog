@@ -26,6 +26,11 @@
                         <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ $article->title }}</h2>
                         <p class="font-normal text-gray-700 dark:text-gray-400">{{ substr($article->content, 0, 30) }}...</p>
                         </a>
+                        @foreach ($article->categories as $category)
+                            <span class="inline-block bg-gray-200 text-gray-700 text-sm font-medium px-3 py-1 rounded-full dark:bg-gray-700 dark:text-gray-300 mr-2">
+                                #{{ $category->name }}
+                                </span>
+                        @endforeach
                         <div class="text-right">
                             <a href="{{ route('articles.edit', $article->id) }}" class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Modifier</a>
                         </div><br>
