@@ -21,6 +21,9 @@
                     <x-nav-link :href="route('public.listauteur')" :active="request()->routeIs('article.create')">
                         Liste des auteurs
                     </x-nav-link>
+                    <x-nav-link :href="route('public.index', Auth::id())" :active="request()->routeIs('article.index')">
+                        Voir mon blog
+                    </x-nav-link>
                 </div>
             </div>
 
