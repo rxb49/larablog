@@ -18,6 +18,7 @@
     @auth
         @include('layouts.navigation')
     @endauth
+    <div class="mt-10">
 
     @guest
         @if (Route::has('login'))
@@ -31,5 +32,6 @@
                 {{ $slot }}
             </div>
         </div>
+    </div>
     </body>
 </html>

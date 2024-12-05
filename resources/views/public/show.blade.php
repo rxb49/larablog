@@ -1,10 +1,9 @@
-<div class="text-xl hover:underline font-bold ml-10 mt-10">
+
+<x-logged-layout>
+<div class="text-xl hover:underline font-bold mt-10">
         <a href="{{ route('public.index', $article->user->id) }}" class="text-xl hover:underline font-bold ml-10"> ← Retour sur les articles</a>
     </div>
-<x-guest-layout>
-
     <div class="pt-6 px-4">
-
         <div class="flex justify-between items-center">
             <!-- Titre à gauche -->
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
@@ -93,7 +92,7 @@
 
 
 
-</x-guest-layout>
+</x-logged-layout>
 
 
 

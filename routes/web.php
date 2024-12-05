@@ -30,6 +30,7 @@ require __DIR__.'/auth.php';
 
 
 Route::get('/{user}', [PublicController::class, 'index'])->name('public.index');
+//Route::get('/{user}', [PublicController::class, 'indexByCategory'])->name('public.indexByCategory');
 Route::get('/{user}/{article}', [PublicController::class, 'show'])->name('public.show');
 
 

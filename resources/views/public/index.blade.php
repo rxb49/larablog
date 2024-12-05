@@ -1,4 +1,4 @@
-<x-guest-layout>
+<x-logged-layout>
     <div class="text-center">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             Liste des articles publiés de {{ $user->name }}
@@ -6,6 +6,25 @@
     </div>
 
     <div>
+
+        <div class="mt-6 max-w-xl mx-auto">
+            <form method="GET" action="{{ 'public.indexByCategory' }}" class="mb-4">
+                <label for="filter" class="block text-gray-700 dark:text-gray-300 font-semibold mb-2">Filtrer les commentaires</label>
+                <select 
+                    name="filter" 
+                    id="filter" 
+                    class="w-full px-3 py-2 border rounded-md text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-700 focus:outline-none focus:ring focus:ring-blue-300 dark:focus:ring-blue-700"
+                    placeholder="Recherchez un commentaire..."
+                >
+                    @foreach ($categories as $category)
+                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                    @endforeach
+                </select>
+                <button type="submit" class="mt-2 px-4 py-2 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300 dark:focus:ring-blue-700">
+                    Filtrer
+                </button>
+            </form>
+        </div>
         <!-- Articles -->
 
         @foreach ($articles as $article)
@@ -31,4 +50,4 @@
 
     </div>
     {{ $articles->links() }}
-</x-guest-layout>
+</x-logged-layout>
