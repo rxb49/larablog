@@ -10,10 +10,10 @@ use Illuminate\Support\Facades\Auth;
 class ArticleController extends Controller
 {
     
-    public function like()
+    public function like(Request $request)
     {
-        $user = Auth::user();
-        $articles = Article::where('user_id', $user->id)->first();
+        $id = $request->id;
+        $articles = Article::where('id', $id)->first();
         $articles->likes++;
         $articles->save();
 

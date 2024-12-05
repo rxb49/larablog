@@ -9,6 +9,11 @@ use Illuminate\Foundation\Auth\User;
 
 class PublicController extends Controller
 {
+    public function home(){
+
+        $article = Article::take(5)->orderBy('likes', 'desc')->get();
+        return view('public.home', ['articles' => $article]);
+    }
     public function index(User $user)
     {
         // On récupère les articles publiés de l'utilisateur

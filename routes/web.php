@@ -7,9 +7,7 @@ use App\Http\Controllers\PublicController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProfileController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [PublicController::class, 'home'])->name('public.home');
 Route::post('/articles/{article}/update', [UserController::class, 'update'])->name('articles.update');
 Route::get('/articles/{article}/remove', [UserController::class, 'remove'])->name('articles.remove');
 Route::get('/listauteur', [PublicController::class, 'listauteur'])->name('public.listauteur');
@@ -23,7 +21,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/articles/create', [UserController::class, 'create'])->name('articles.create');
     Route::post('/articles/store', [UserController::class, 'store'])->name('articles.store');
     Route::get('/articles/{article}/edit', [UserController::class, 'edit'])->name('articles.edit');
-    Route::get('/articles/like', [ArticleController::class, 'like'])->name('article.like');
+    Route::get('/articles/like/{id}', [ArticleController::class, 'like'])->name('article.like');
     Route::post('/comments/store', [CommentController::class, 'store'])->name('comments.store');
 });
 
